@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  mysql_db:
+    image: mysql:latest
+    container_name: ChatServer_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: ChatServer
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"  # Exponer el puerto 3306 de MySQL
+    volumes:
+      - mysql_data:/var/lib/mysql  # Persistencia de datos
+
+volumes:
+  mysql_data:
