@@ -8,16 +8,18 @@ import socrates.user.User;
 import socrates.client.CallbackClientInterface;
 
 public interface CallbackServerInterface extends Remote {
-
-    User logIn(CallbackClientInterface client, String name, String password) throws RemoteException; // logs in a user
+    // TODO think about the return types of the methods. Is it necessary to return a User?
+    User login(CallbackClientInterface client, String name, String password) throws RemoteException; // logs in a user
     boolean logOut(String name, String password) throws RemoteException; // logs out a user
 
     User register (CallbackClientInterface client, String name, String password) throws RemoteException; // registers a user
     boolean deleteAccount(String name, String password) throws RemoteException; // deletes an account
 
-    boolean addFriend(String name, String friendName, String password) throws RemoteException; // adds a friend
+    ArrayList<String> obtainFriendList(String name, String password) throws RemoteException; // obtains friend list
+    ArrayList<String> obtainConnectedFriendList(String name, String password) throws RemoteException; // obtains connected friend list
     boolean removeFriend(String name, String friendName, String password) throws RemoteException; // removes a friend
 
+    boolean sendFriendRequest(String name, String friendName, String password) throws RemoteException; // adds a friend
     boolean acceptFriendRequest(String name, String friendName, String password) throws RemoteException; // accepts a friend request
     boolean rejectFriendRequest(String name, String friendName, String password) throws RemoteException; // rejects a friend request
 

@@ -1,11 +1,12 @@
 package socrates.user;
 
+import socrates.client.CallbackClientInterface;
+
 import java.util.ArrayList;
 
 public class User {
+    private CallbackClientInterface client;
     private String username;
-    private String password;
-    private String remoteAddress;
     private ArrayList<String> friends;
     private ArrayList<String> friendsConnected;
     private ArrayList<String> friendRequests;
@@ -14,14 +15,22 @@ public class User {
     // private MessageInterface messageInterface;
 
     // Constructor
-    public User(String username, String password, String remoteAddress) {
+    public User(CallbackClientInterface client, String username) {
         this.username = username;
-        this.password = password;
-        this.remoteAddress = remoteAddress;
         this.friends = new ArrayList<>();
         this.friendsConnected = new ArrayList<>();
         this.friendRequests = new ArrayList<>();
         this.connected = false;
+    }
+
+
+    public User(CallbackClientInterface client, String username, ArrayList<String> friends, ArrayList<String> friendsConnected, ArrayList<String> friendRequests) {
+        this.client = client;
+        this.username = username;
+        this.friends = friends;
+        this.friendsConnected = friendsConnected;
+        this.friendRequests = friendRequests;
+        this.connected = true;
     }
 
     // Getters and Setters
@@ -32,22 +41,6 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getRemoteAddress() {
-        return remoteAddress;
-    }
-
-    public void setRemoteAddress(String remoteAddress) {
-        this.remoteAddress = remoteAddress;
     }
 
     public ArrayList<String> getFriends() {
@@ -80,6 +73,14 @@ public class User {
 
     public void setConnected(boolean connected) {
         this.connected = connected;
+    }
+
+    public CallbackClientInterface getClient() {
+        return client;
+    }
+
+    public void setClient(CallbackClientInterface client) {
+        this.client = client;
     }
 
     // Get the user's RMI address

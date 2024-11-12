@@ -13,67 +13,67 @@ public class BDAdminTest {
 
     @BeforeEach
     public void setUp() {
-        // Instancia de BDAdmin para cada prueba
+        // BDAdmin instance for each test
         bdAdmin = new BDAdmin();
     }
 
     @AfterEach
     public void tearDown() {
-        // Eliminar cualquier amistad creada durante las pruebas
-        bdAdmin.borrarAmigo("user1", "user2");
+        // Remove any friendships created during tests
+        bdAdmin.removeFriend("user1", "user2");
 
-        // Eliminar usuarios de prueba creados en cada test
-        bdAdmin.borrarUsuario("testuser_login", "password_login");
-        bdAdmin.borrarUsuario("testuser_search", "password_search");
-        bdAdmin.borrarUsuario("testuser_delete", "password_delete");
-        bdAdmin.borrarUsuario("user1", "password1");
-        bdAdmin.borrarUsuario("user2", "password2");
+        // Remove test users created in each test
+        bdAdmin.deleteUser("testuser_login", "password_login");
+        bdAdmin.deleteUser("testuser_search", "password_search");
+        bdAdmin.deleteUser("testuser_delete", "password_delete");
+        bdAdmin.deleteUser("user1", "password1");
+        bdAdmin.deleteUser("user2", "password2");
     }
 
     @Test
-    public void testIniciarSesion() {
-        // Prueba de inicio de sesión
-        bdAdmin.registrarse("testuser_login", "password_login", "direccion_remota");
-        boolean resultado = bdAdmin.iniciarSesion("testuser_login", "password_login");
-        assertTrue(resultado, "El usuario debería poder iniciar sesión correctamente.");
-        System.out.println("Inicio de sesión exitoso.");
+    public void testLogin() {
+        // Login test
+        bdAdmin.register("testuser_login", "password_login", "remote_address");
+        boolean result = bdAdmin.login("testuser_login", "password_login");
+        assertTrue(result, "The user should be able to log in successfully.");
+        System.out.println("Login successful.");
     }
 
     @Test
-    public void testBuscarUsuario() {
-        // Prueba la búsqueda de un usuario existente
-        bdAdmin.registrarse("testuser_search", "password_search", "direccion_remota");
-        boolean encontrado = bdAdmin.buscarUsuario("testuser_search");
-        assertTrue(encontrado, "El usuario debería existir en la base de datos.");
-        System.out.println("Búsqueda de usuario exitosa.");
+    public void testSearchUser() {
+        // Test for searching an existing user
+        bdAdmin.register("testuser_search", "password_search", "remote_address");
+        boolean found = bdAdmin.existsUser("testuser_search");
+        assertTrue(found, "The user should exist in the database.");
+        System.out.println("User search successful.");
     }
 
     @Test
-    public void testBorrarUsuario() {
-        // Prueba la eliminación de un usuario
-        bdAdmin.registrarse("testuser_delete", "password_delete", "direccion_remota");
-        boolean eliminado = bdAdmin.borrarUsuario("testuser_delete", "password_delete");
-        assertTrue(eliminado, "El usuario debería eliminarse correctamente.");
-        System.out.println("Eliminación de usuario exitosa.");
+    public void testDeleteUser() {
+        // Test for deleting a user
+        bdAdmin.register("testuser_delete", "password_delete", "remote_address");
+        boolean deleted = bdAdmin.deleteUser("testuser_delete", "password_delete");
+        assertTrue(deleted, "The user should be deleted successfully.");
+        System.out.println("User deletion successful.");
     }
 
     @Test
-    public void testAmistad() {
-        // Prueba la funcionalidad de amistad
-        bdAdmin.registrarse("user1", "password1", "direccion_remota1");
-        bdAdmin.registrarse("user2", "password2", "direccion_remota2");
+    public void testFriendship() {
+        // Test friendship functionality
+        bdAdmin.register("user1", "password1", "remote_address1");
+        bdAdmin.register("user2", "password2", "remote_address2");
 
-        // Enviar petición de amistad
-        boolean peticionEnviada = bdAdmin.enviarPeticion("user1", "user2");
-        assertTrue(peticionEnviada, "La petición de amistad debería enviarse correctamente.");
+        // Send friend request
+        boolean requestSent = bdAdmin.sendFriendRequest("user1", "user2");
+        assertTrue(requestSent, "The friend request should be sent successfully.");
 
-        // Aceptar petición de amistad
-        boolean amistadAceptada = bdAdmin.aceptarPeticion("user1", "user2");
-        assertTrue(amistadAceptada, "La petición de amistad debería aceptarse correctamente.");
+        // Accept friend request
+        boolean friendshipAccepted = bdAdmin.acceptFriendRequest("user1", "user2");
+        assertTrue(friendshipAccepted, "The friend request should be accepted successfully.");
 
-        // Comprobar amistades
-        ArrayList<String> amigos = bdAdmin.obtenerAmistades("user1");
-        assertTrue(amigos.contains("user2"), "user2 debería estar en la lista de amistades de user1.");
-        System.out.println("Funcionalidad de amistad probada exitosamente.");
+        // Check friendships
+        ArrayList<String> friends = bdAdmin.getFriends("user1");
+        assertTrue(friends.contains("user2"), "user2 should be in user1's friends list.");
+        System.out.println("Friendship functionality successfully tested.");
     }
 }

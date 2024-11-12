@@ -4,242 +4,255 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class BDAdmin implements BDAdminInterface {
-    // Cambiar la URL de conexión para MySQL
-    private static final String URL = "jdbc:mysql://localhost:3306/ChatServer"; // localhost si la aplicación Java está en la misma máquina que Docker
-    private static final String USER = "user"; // Usuario configurado en docker-compose.yml
-    private static final String PASSWORD = "password"; // Contraseña configurada en docker-compose.yml
+    // Change the connection URL for MySQL
+    private static final String URL = "jdbc:mysql://localhost:3306/ChatServer"; // localhost if the Java app is on the same machine as Docker
+    private static final String USER = "user"; // User configured in docker-compose.yml
+    private static final String PASSWORD = "password"; // Password configured in docker-compose.yml
     private Connection connection;
 
-    // Constructor de la clase, se llama automáticamente al instanciar un objeto
+    // Class constructor, called automatically when an object is instantiated
     public BDAdmin() {
-        conectar(); // Llama al metodo conectar al crear una instancia de la clase
+        connect(); // Calls the connect method when creating an instance of the class
     }
 
-    // Metodo para establecer la conexión a la base de datos
-    public void conectar() {
+    // Method to establish a database connection
+    public void connect() {
         try {
-            // Establecer la conexión a la base de datos con usuario y contraseña
+            // Establish connection to the database with user and password
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("Conexión establecida a la base de datos.");
+            System.out.println("Database connection established.");
         } catch (SQLException e) {
-            System.out.println("Error al conectarse a la bd: " + e.getMessage());
+            System.out.println("Error connecting to the database: " + e.getMessage());
         }
     }
 
-    // Metodo para cerrar la conexión a la base de datos
-    public void desconectar() {
+    // Method to close the database connection
+    public void disconnect() {
         try {
-            // Cerrar la conexión a la base de datos si no está cerrada
+            // Close the database connection if it is not already closed
             if (connection != null && !connection.isClosed()) {
                 connection.close();
-                System.out.println("Conexión cerrada.");
+                System.out.println("Connection closed.");
             }
         } catch (SQLException e) {
-            System.out.println("Error al cerrar la conexion: " + e.getMessage());
+            System.out.println("Error closing the connection: " + e.getMessage());
         }
     }
 
-    // Metodo para iniciar sesión de usuario
-    public boolean iniciarSesion(String username, String contrasena) {
+    // Method for user login
+    @Override
+    public boolean login(String username, String password) {
         try {
-            String sql = "SELECT * FROM USUARIO WHERE username = ? AND contrasena = ?";
+            String sql = "SELECT * FROM USER WHERE username = ? AND password = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, username);
-                statement.setString(2, contrasena);
+                statement.setString(2, password);
                 try (ResultSet resultSet = statement.executeQuery()) {
-                    System.out.println("Consulta realizada sin errores");
+                    System.out.println("Query executed without errors");
                     return resultSet.next();
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error al iniciar sesion: " + e.getMessage());
+            System.out.println("Error during login: " + e.getMessage());
             return false;
         }
     }
 
-    // Metodo para registrar un nuevo usuario
-    public boolean registrarse(String username, String contrasena, String direccionObjetoRemoto) {
+    // Method to register a new user
+    @Override
+    public boolean register(String username, String password, String remoteObjectAddress) {
         try {
-            String sql = "INSERT INTO USUARIO (username, contrasena, direccion_objeto_remoto) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO USER (username, password, remote_object_address) VALUES (?, ?, ?)";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, username);
-                statement.setString(2, contrasena);
-                statement.setString(3, direccionObjetoRemoto);
+                statement.setString(2, password);
+                statement.setString(3, remoteObjectAddress);
                 int rowsAffected = statement.executeUpdate();
-                System.out.println("Filas afectadas en INSERT " + rowsAffected);
+                System.out.println("Rows affected in INSERT " + rowsAffected);
                 return rowsAffected > 0;
             }
         } catch (SQLException e) {
-            System.out.println("Error al registrar usuario: " + e.getMessage());
+            System.out.println("Error registering user: " + e.getMessage());
             return false;
         }
     }
 
-    // Metodo para borrar un usuario
-    public boolean borrarUsuario(String username, String contrasena) {
+    // Method to delete a user
+    @Override
+    public boolean deleteUser(String username, String password) {
         try {
-            // Preparar la declaración SQL para borrar el usuario con verificación de contraseña
-            String sql = "DELETE FROM USUARIO WHERE username = ? AND contrasena = ?";
+            // Prepare the SQL statement to delete the user with password verification
+            String sql = "DELETE FROM USER WHERE username = ? AND password = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                // Establecer los valores de los parámetros
+                // Set parameter values
                 statement.setString(1, username);
-                statement.setString(2, contrasena);
+                statement.setString(2, password);
 
-                // Ejecutar la consulta y obtener el número de filas afectadas
-                int filasAfectadas = statement.executeUpdate();
+                // Execute the query and get the number of rows affected
+                int rowsAffected = statement.executeUpdate();
 
-                System.out.println("Filas afectadas en DELETE " + filasAfectadas);
-                // Devolver true si se eliminó al menos una fila, indicando éxito
-                return filasAfectadas > 0;
+                System.out.println("Rows affected in DELETE " + rowsAffected);
+                // Return true if at least one row was deleted, indicating success
+                return rowsAffected > 0;
             }
         } catch (SQLException e) {
-            System.out.println("Error al borrar usuario: " + e.getMessage());
+            System.out.println("Error deleting user: " + e.getMessage());
             return false;
         }
     }
 
-    // Metodo para buscar un usuario en la base de datos
-    public boolean buscarUsuario(String username) {
+    // Method to search for a user in the database
+    @Override
+    public boolean existsUser(String username) {
         try {
-            String sql = "SELECT * FROM USUARIO WHERE username = ?";
+            String sql = "SELECT * FROM USER WHERE username = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, username);
                 try (ResultSet resultSet = statement.executeQuery()) {
-                    System.out.println("Consulta realizada sin errores");
+                    System.out.println("Query executed without errors");
                     return resultSet.next();
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error al buscar usuario: " + e.getMessage());
+            System.out.println("Error searching for user: " + e.getMessage());
             return false;
         }
     }
 
-    // Metodo para obtener la lista de amigos de un usuario
-    public ArrayList<String> obtenerAmistades(String usuario) {
+    // Method to get a user's friend list
+    @Override
+    public ArrayList<String> getFriends(String user) {
         try {
-            String sql = "SELECT * FROM AMISTAD WHERE pendiente = 0 AND (usuario_que_pide = ? OR usuario_que_recibe = ?)";
-            ArrayList<String> amigos = new ArrayList<>();
+            String sql = "SELECT * FROM FRIENDSHIP WHERE pending = 0 AND (requesting_user = ? OR receiving_user = ?)";
+            ArrayList<String> friends = new ArrayList<>();
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setString(1, usuario);
-                statement.setString(2, usuario);
+                statement.setString(1, user);
+                statement.setString(2, user);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     while (resultSet.next()) {
-                        String u1 = resultSet.getString("usuario_que_pide");
-                        String u2 = resultSet.getString("usuario_que_recibe");
-                        System.out.println("user q pide: " + u1);
-                        System.out.println("user q recibe: " + u2);
-                        System.out.println("User: " + usuario);
-                        if (!u1.equalsIgnoreCase(usuario))
-                            amigos.add(u1);
-                        else amigos.add(u2);
+                        String u1 = resultSet.getString("requesting_user");
+                        String u2 = resultSet.getString("receiving_user");
+                        System.out.println("requesting user: " + u1);
+                        System.out.println("receiving user: " + u2);
+                        System.out.println("User: " + user);
+                        if (!u1.equalsIgnoreCase(user))
+                            friends.add(u1);
+                        else friends.add(u2);
                     }
-                    System.out.println("Consulta realizada sin errores");
-                    return amigos;
+                    System.out.println("Query executed without errors");
+                    return friends;
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error al buscar usuario: " + e.getMessage());
+            System.out.println("Error searching for user: " + e.getMessage());
             return null;
         }
     }
 
-    // Metodo para obtener la lista de peticiones de amistad pendientes de un usuario
-    public ArrayList<String> obtenerPeticiones(String usuario) {
-        String sql = "SELECT usuario_que_pide FROM AMISTAD WHERE pendiente = 1 AND usuario_que_recibe = ?";        ArrayList<String> solicitudes = new ArrayList<>();
+    // Method to get a user's pending friend requests
+    @Override
+    public ArrayList<String> getPendingFriendRequests(String user) {
+        String sql = "SELECT requesting_user FROM FRIENDSHIP WHERE pending = 1 AND receiving_user = ?";
+        ArrayList<String> requests = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, usuario);
+            statement.setString(1, user);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    solicitudes.add(resultSet.getString("usuario_que_pide"));
+                    requests.add(resultSet.getString("requesting_user"));
                 }
-                System.out.println("Consulta realizada sin errores");
-                return solicitudes;
+                System.out.println("Query executed without errors");
+                return requests;
             }
         } catch (SQLException e) {
-            System.out.println("Error al buscar usuario: " + e.getMessage());
+            System.out.println("Error searching for user: " + e.getMessage());
             return null;
         }
     }
 
-    // Metodo para enviar una petición de amistad
-    public boolean enviarPeticion(String origen, String destino) {
-        String sql = "INSERT INTO AMISTAD (usuario_que_pide, usuario_que_recibe, pendiente) VALUES (?, ?, ?)";
+    // Method to send a friend request
+    @Override
+    public boolean sendFriendRequest(String origin, String destination) {
+        String sql = "INSERT INTO FRIENDSHIP (requesting_user, receiving_user, pending) VALUES (?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, origen);
-            statement.setString(2, destino);
+            statement.setString(1, origin);
+            statement.setString(2, destination);
             statement.setInt(3, 1);
             int rowsAffected = statement.executeUpdate();
-            System.out.println("Filas afectadas en INSERT " + rowsAffected);
+            System.out.println("Rows affected in INSERT " + rowsAffected);
             return rowsAffected > 0;
         } catch (SQLException e) {
-            System.out.println("Error al pedir amistad: " + e.getMessage());
+            System.out.println("Error sending friend request: " + e.getMessage());
             return false;
         }
     }
 
-    // Metodo para aceptar una petición de amistad
-    public boolean aceptarPeticion(String origen, String destino) {
-        String sql = "UPDATE AMISTAD SET pendiente = 0 WHERE usuario_que_pide = ? AND usuario_que_recibe = ? AND pendiente = 1";
+    // Method to accept a friend request
+    @Override
+    public boolean acceptFriendRequest(String origin, String destination) {
+        String sql = "UPDATE FRIENDSHIP SET pending = 0 WHERE requesting_user = ? AND receiving_user = ? AND pending = 1";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, origen);
-            statement.setString(2, destino);
+            statement.setString(1, origin);
+            statement.setString(2, destination);
             int rowsAffected = statement.executeUpdate();
-            System.out.println("Filas afectadas en UPDATE " + rowsAffected);
+            System.out.println("Rows affected in UPDATE " + rowsAffected);
             return rowsAffected > 0;
         } catch (SQLException e) {
-            System.out.println("Error al aceptar amistad: " + e.getMessage());
+            System.out.println("Error accepting friend request: " + e.getMessage());
             return false;
         }
     }
 
-    // Metodo para eliminar a un amigo
-    public boolean borrarAmigo(String origen, String destino) {
-        String sql = "DELETE FROM AMISTAD WHERE ((usuario_que_pide = ? AND usuario_que_recibe = ?) OR (usuario_que_pide = ? AND usuario_que_recibe = ?)) AND pendiente=0";
+    // Method to remove a friend
+    @Override
+    public boolean removeFriend(String origin, String destination) {
+        String sql = "DELETE FROM FRIENDSHIP WHERE ((requesting_user = ? AND receiving_user = ?) OR (requesting_user = ? AND receiving_user = ?)) AND pending=0";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, origen);
-            statement.setString(2, destino);
-            statement.setString(3, destino);
-            statement.setString(4, origen);
+            statement.setString(1, origin);
+            statement.setString(2, destination);
+            statement.setString(3, destination);
+            statement.setString(4, origin);
 
             int rowsAffected = statement.executeUpdate();
-            System.out.println("Filas afectadas en DELETE " + rowsAffected);
+            System.out.println("Rows affected in DELETE " + rowsAffected);
             return rowsAffected > 0;
         } catch (SQLException e) {
-            System.out.println("Error al eliminar amistad: " + e.getMessage());
+            System.out.println("Error removing friend: " + e.getMessage());
             return false;
         }
     }
 
-    // Metodo para rechazar una petición de amistad
-    public boolean rechazarAmistad(String origen, String destino) {
-        String sql = "DELETE FROM AMISTAD WHERE usuario_que_pide = ? AND usuario_que_recibe = ? AND pendiente = 1";
+    // Method to reject a friend request
+    @Override
+    public boolean rejectFriendRequest(String origin, String destination) {
+        String sql = "DELETE FROM FRIENDSHIP WHERE requesting_user = ? AND receiving_user = ? AND pending = 1";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, origen);
-            statement.setString(2, destino);
+            statement.setString(1, origin);
+            statement.setString(2, destination);
             int rowsAffected = statement.executeUpdate();
-            System.out.println("Filas afectadas en DELETE " + rowsAffected);
+            System.out.println("Rows affected in DELETE " + rowsAffected);
             return rowsAffected > 0;
         } catch (SQLException e) {
-            System.out.println("Error al rechazar peticion de amistad: " + e.getMessage());
+            System.out.println("Error rejecting friend request: " + e.getMessage());
             return false;
         }
     }
 
-    // Metodo para cambiar la contraseña del usuario
-    public boolean cambiarClaveAcceso(String username, String oldPasswd, String newPasswd) {
-        // UPDATE AMISTAD SET pendiente = 0 WHERE usuario_que_pide = ? AND usuario_que_recibe = ? AND pendiente = 1
-        String sql = "UPDATE USUARIO SET contrasena = ? WHERE username = ? AND contrasena = ?";
+    // Method to change a user's password
+    @Override
+    public boolean changePassword(String username, String oldPasswd, String newPasswd) {
+        String sql = "UPDATE USER SET password = ? WHERE username = ? AND password = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, newPasswd);
             statement.setString(2, username);
             statement.setString(3, oldPasswd);
             int rowsAffected = statement.executeUpdate();
-            System.out.println("Filas afectadas en UPDATE " + rowsAffected);
+            System.out.println("Rows affected in UPDATE " + rowsAffected);
             return rowsAffected > 0;
         } catch (SQLException e) {
-            System.out.println("Error al cambiar la contraseña de " + username + ": " + e.getMessage());
+            System.out.println("Error changing the password for " + username + ": " + e.getMessage());
             return false;
         }
     }
+
+
 }
