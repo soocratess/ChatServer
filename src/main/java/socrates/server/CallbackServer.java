@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 // TODO review if notification callbacks on the client are correctly implemented after each funcition
+// TODO review if security is correctly implemented in each function
+// TODO test each function on test class
 public class CallbackServer extends UnicastRemoteObject implements CallbackServerInterface {
     private HashMap<String, User> connectedUsers; // Connected users
     private BDAdminInterface bd; // Database control
@@ -52,6 +54,7 @@ public class CallbackServer extends UnicastRemoteObject implements CallbackServe
             user = new User(client, name, friends, connectedFrieds, friendRequests);
 
             // Connected user
+            notifyConnectionToFriends(name);
             connectedUsers.put(name, user);
             System.out.println("User " + name + " logged in");
         } else {
@@ -92,8 +95,7 @@ public class CallbackServer extends UnicastRemoteObject implements CallbackServe
             System.out.println("Unable to register user " + name);
             return user;
         } else if (bd.register(name, password, user.getRMIAddress())) {
-            user = new User(client, name);
-            connectedUsers.put(name, user);
+            user = login(client, name, password);
             System.out.println("Successfully registered user " + name);
         }
 
@@ -137,11 +139,13 @@ public class CallbackServer extends UnicastRemoteObject implements CallbackServe
             return false;
         } else {
             bd.sendFriendRequest(name, friendName);
+            connectedUsers.get(friendName).getClient().friendRequestReceived(name);
             System.out.println("Friend request sent from " + name + " to " + friendName);
             return true;
         }
     }
 
+    @Override
     public boolean removeFriend(String name, String friendName, String password) throws RemoteException {
         // Verifies the credentials are correct
         if (!bd.login(name, password)) {
@@ -152,30 +156,95 @@ public class CallbackServer extends UnicastRemoteObject implements CallbackServe
             return false;
         } else { // Removes the friend
             bd.removeFriend(name, friendName); // Removes the friend from the database
-            connectedUsers.get(name).getClient().friendDeleted(friendName); // Notifies the user (friend)
+            connectedUsers.get(friendName).getClient().friendDeleted(name); // Notifies the user (friend)
             System.out.println("Friend removed from " + name + " friends list");
             return true;
         }
     }
 
+    @Override
     public boolean acceptFriendRequest(String name, String friendName, String password) throws RemoteException {
-        // accepts a friend request
+        // Verifies the credentials are correct
+        if (!bd.login(name, password)) {
+            System.out.println("Unable to accept friend request: invalid credentials");
+            return false;
+        } else if (!bd.getPendingFriendRequests(name).contains(friendName)) {
+            System.out.println("Unable to accept friend request: friend request does not exist");
+            return false;
+        } else { // Accepts the friend request
+            if (bd.acceptFriendRequest(name, friendName)) { // Accepts the friend request in the database
+                connectedUsers.get(friendName).getClient().friendRequestAccepted(name); // Notifies the user (friend)
+                System.out.println("Friend request accepted from " + name + " to " + friendName);
+                return true;
+            } else {
+                System.out.println("Unable to accept friend request: error accepting friend request");
+                return false;
+            }
+        }
     }
 
+    @Override
     public boolean rejectFriendRequest(String name, String friendName, String password) throws RemoteException {
-        // rejects a friend request
+        // Verifies the credentials are correct
+        if (!bd.login(name, password)) {
+            System.out.println("Unable to reject friend request: invalid credentials");
+            return false;
+        } else if (!bd.getPendingFriendRequests(name).contains(friendName)) {
+            System.out.println("Unable to reject friend request: friend request does not exist");
+            return false;
+        } else { // Rejects the friend request
+            if (bd.rejectFriendRequest(name, friendName)) { // Rejects the friend request in the database
+                connectedUsers.get(friendName).getClient().friendRequestRejected(name); // Notifies the user (friend)
+                System.out.println("Friend request rejected from " + name + " to " + friendName);
+                return true;
+            } else {
+                System.out.println("Unable to reject friend request: error rejecting friend request");
+                return false;
+            }
+        }
     }
 
+    @Override
     public ArrayList<String> obtainFriendRequests(String name, String password) throws RemoteException {
-        // obtains friend requests
+        // Verifies the credentials are correct
+        if (!bd.login(name, password)) {
+            System.out.println("Unable to obtain friend requests: invalid credentials");
+            return new ArrayList<String>();
+        } else {
+            ArrayList<String> friendRequests = bd.getPendingFriendRequests(name);
+            System.out.println("Friend requests obtained for user " + name);
+            return friendRequests;
+        }
     }
 
+    @Override
     public ArrayList<String> obtainFriendList(String name, String password) throws RemoteException {
-        // obtains friend list
+        // Verifies the credentials are correct
+        if (!bd.login(name, password)) {
+            System.out.println("Unable to obtain friend list: invalid credentials");
+            return new ArrayList<String>();
+        } else {
+            ArrayList<String> friends = bd.getFriends(name);
+            System.out.println("Friend list obtained for user " + name);
+            return friends;
+        }
     }
 
+    @Override
     public ArrayList<String> obtainConnectedFriendList(String name, String password) throws RemoteException {
-        // obtains connected friend list
+        // Verifies the credentials are correct
+        if (!bd.login(name, password)) {
+            System.out.println("Unable to obtain connected friend list: invalid credentials");
+            return new ArrayList<String>();
+        } else { // Obtains the connected friend list
+            ArrayList<String> connectedFriends = new ArrayList<String>();
+            for (String friend : bd.getFriends(name)) { // Iterates over the user's friends
+                if (connectedUsers.containsKey(friend)) connectedFriends.add(friend); // Adds the connected friends
+            }
+
+            System.out.println("Connected friend list obtained for user " + name);
+            return connectedFriends; // Returns the connected friend list
+        }
     }
 
     @Override
@@ -200,6 +269,15 @@ public class CallbackServer extends UnicastRemoteObject implements CallbackServe
         for (String friend : connectedUsers.get(user).getFriends()) {
             if (connectedUsers.containsKey(friend)) {
                 connectedUsers.get(friend).getClient().friendDisconnected(user);
+            }
+        }
+    }
+
+    private synchronized void notifyConnectionToFriends(String user) throws RemoteException {
+        // Notifies the user's friends
+        for (String friend : connectedUsers.get(user).getFriends()) {
+            if (connectedUsers.containsKey(friend)) {
+                connectedUsers.get(friend).getClient().friendConnected(user);
             }
         }
     }

@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="15b95f13-5aca-420e-a4f8-b2849e79d064" name="Changes" comment="Primera versión de las interfaces de callback y objeto User">
-      <change afterPath="$PROJECT_DIR$/src/main/java/socrates/server/CallbackServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/socrates/bd/BDAdmin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/socrates/bd/BDAdmin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/socrates/bd/BDAdminInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/socrates/bd/BDAdminInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/socrates/client/CallbackClientInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/socrates/client/CallbackClientInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/socrates/server/CallbackServerInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/socrates/server/CallbackServerInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/socrates/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/socrates/user/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/socrates/bd/BDAdminTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/socrates/bd/BDAdminTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/socrates/server/CallbackServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/socrates/server/CallbackServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +147,7 @@
       <workItem from="1731420370618" duration="39000" />
       <workItem from="1731420418815" duration="125000" />
       <workItem from="1731420554064" duration="2535000" />
-      <workItem from="1731434961976" duration="1940000" />
+      <workItem from="1731434961976" duration="4352000" />
     </task>
     <task id="LOCAL-00001" summary="Primera versión de las interfaces de callback y objeto User">
       <option name="closed" value="true" />
