@@ -24,6 +24,18 @@ public class CallbackServer extends UnicastRemoteObject implements CallbackServe
         bd = new BDAdmin();
     }
 
+    public HashMap<String, User> getConnectedUsers() {
+        return connectedUsers;
+    }
+
+    public BDAdminInterface getBd() {
+        return bd;
+    }
+
+    public void setBd(BDAdminInterface bd) {
+        this.bd = bd;
+    }
+
     @Override
     public User login(CallbackClientInterface client, String name, String password) throws RemoteException {
 
@@ -173,7 +185,7 @@ public class CallbackServer extends UnicastRemoteObject implements CallbackServe
             return false;
         } else { // Accepts the friend request
             if (bd.acceptFriendRequest(name, friendName)) { // Accepts the friend request in the database
-                connectedUsers.get(friendName).getClient().friendRequestAccepted(name); // Notifies the user (friend)
+                connectedUsers.get(friendName).getClient().friendAdded(name); // Notifies the user (friend)
                 System.out.println("Friend request accepted from " + name + " to " + friendName);
                 return true;
             } else {

@@ -4,8 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="15b95f13-5aca-420e-a4f8-b2849e79d064" name="Changes" comment="Primera versión de las interfaces de callback y objeto User">
+    <list default="true" id="15b95f13-5aca-420e-a4f8-b2849e79d064" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/database.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/socrates/encryption/EncryptionService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/socrates/encryption/EncryptionServiceInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/socrates/encryption/Message.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/socrates/encryption/SecureServerInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/socrates/encryption/SecurityToken.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/socrates/server/CallbackServerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/socrates/client/CallbackClientInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/socrates/client/CallbackClientInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/socrates/server/CallbackServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/socrates/server/CallbackServer.java" afterDir="false" />
     </list>
@@ -17,8 +25,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -46,25 +54,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;JUnit.BDAdminTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.BDAdminTest.testConexion.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.BDAdminTest.testRegistrarUsuario.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/smokey/Documents/ETSE/CoDis/CoDis/P5/P2PChatServer&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JUnit.BDAdminTest.executor": "Run",
+    "JUnit.BDAdminTest.testConexion.executor": "Run",
+    "JUnit.BDAdminTest.testLogin.executor": "Run",
+    "JUnit.BDAdminTest.testRegistrarUsuario.executor": "Run",
+    "JUnit.CallbackServerTest.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/smokey/Documents/ETSE/CoDis/CoDis/P5/P2PChatServer",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="JUnit.BDAdminTest">
     <configuration name="BDAdminTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ChatServer" />
@@ -97,6 +107,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="BDAdminTest.testLogin" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ChatServer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="socrates.bd.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="socrates.bd" />
+      <option name="MAIN_CLASS_NAME" value="socrates.bd.BDAdminTest" />
+      <option name="METHOD_NAME" value="testLogin" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="BDAdminTest.testRegistrarUsuario" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ChatServer" />
       <extension name="coverage">
@@ -113,9 +139,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="CallbackServerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ChatServer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="socrates.encryption.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="socrates.server" />
+      <option name="MAIN_CLASS_NAME" value="socrates.server.CallbackServerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.BDAdminTest" />
+        <item itemvalue="JUnit.BDAdminTest.testLogin" />
+        <item itemvalue="JUnit.CallbackServerTest" />
         <item itemvalue="JUnit.BDAdminTest.testRegistrarUsuario" />
         <item itemvalue="JUnit.BDAdminTest.testConexion" />
       </list>
@@ -147,7 +190,12 @@
       <workItem from="1731420370618" duration="39000" />
       <workItem from="1731420418815" duration="125000" />
       <workItem from="1731420554064" duration="2535000" />
-      <workItem from="1731434961976" duration="4352000" />
+      <workItem from="1731434961976" duration="5184000" />
+      <workItem from="1731493715299" duration="1804000" />
+      <workItem from="1731594969259" duration="104000" />
+      <workItem from="1731598048150" duration="1238000" />
+      <workItem from="1731611543619" duration="67000" />
+      <workItem from="1731611793651" duration="737000" />
     </task>
     <task id="LOCAL-00001" summary="Primera versión de las interfaces de callback y objeto User">
       <option name="closed" value="true" />
