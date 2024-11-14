@@ -5,17 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="15b95f13-5aca-420e-a4f8-b2849e79d064" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/database.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/socrates/encryption/EncryptionService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/socrates/encryption/EncryptionServiceInterface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/socrates/encryption/Message.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/socrates/encryption/SecureServerInterface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/socrates/encryption/SecurityToken.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/socrates/server/CallbackServerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/socrates/client/CallbackClientInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/socrates/client/CallbackClientInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/socrates/server/CallbackServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/socrates/server/CallbackServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/socrates/server/CallbackServerInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/socrates/server/CallbackServerInterface.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +53,7 @@
     "JUnit.BDAdminTest.testLogin.executor": "Run",
     "JUnit.BDAdminTest.testRegistrarUsuario.executor": "Run",
     "JUnit.CallbackServerTest.executor": "Run",
+    "JUnit.CallbackServerTest.testLoginSuccess.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
@@ -75,7 +68,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.BDAdminTest">
+  <component name="RunManager" selected="JUnit.CallbackServerTest.testLoginSuccess">
     <configuration name="BDAdminTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ChatServer" />
       <extension name="coverage">
@@ -87,22 +80,6 @@
       <option name="PACKAGE_NAME" value="socrates.bd" />
       <option name="MAIN_CLASS_NAME" value="socrates.bd.BDAdminTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="BDAdminTest.testConexion" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ChatServer" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="socrates.bd.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="socrates.bd" />
-      <option name="MAIN_CLASS_NAME" value="socrates.bd.BDAdminTest" />
-      <option name="METHOD_NAME" value="testConexion" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -154,13 +131,29 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="CallbackServerTest.testLoginSuccess" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ChatServer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="socrates.server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="socrates.server" />
+      <option name="MAIN_CLASS_NAME" value="socrates.server.CallbackServerTest" />
+      <option name="METHOD_NAME" value="testLoginSuccess" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CallbackServerTest.testLoginSuccess" />
         <item itemvalue="JUnit.BDAdminTest" />
         <item itemvalue="JUnit.BDAdminTest.testLogin" />
         <item itemvalue="JUnit.CallbackServerTest" />
         <item itemvalue="JUnit.BDAdminTest.testRegistrarUsuario" />
-        <item itemvalue="JUnit.BDAdminTest.testConexion" />
       </list>
     </recent_temporary>
   </component>
@@ -195,7 +188,7 @@
       <workItem from="1731594969259" duration="104000" />
       <workItem from="1731598048150" duration="1238000" />
       <workItem from="1731611543619" duration="67000" />
-      <workItem from="1731611793651" duration="737000" />
+      <workItem from="1731611793651" duration="1087000" />
     </task>
     <task id="LOCAL-00001" summary="Primera versión de las interfaces de callback y objeto User">
       <option name="closed" value="true" />

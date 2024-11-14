@@ -276,6 +276,21 @@ public class CallbackServer extends UnicastRemoteObject implements CallbackServe
         }
     }
 
+    @Override
+    public String startChat(String name, String friendName, String password) throws RemoteException {
+        // Verifies the credentials are correct
+        if (!bd.login(name, password)) {
+            System.out.println("Unable to start chat: invalid credentials");
+            return null;
+        } else if (!bd.getFriends(name).contains(friendName)) {
+            System.out.println("Unable to start chat: users are not friends");
+            return null;
+        } else {
+            System.out.println("Chat started between " + name + " and " + friendName);
+            return connectedUsers.get(friendName).getRMIAddress();
+        }
+    }
+
     private synchronized void notifyDisconnectionToFriends(String user) throws RemoteException {
         // Notifies the user's friends
         for (String friend : connectedUsers.get(user).getFriends()) {
