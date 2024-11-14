@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="15b95f13-5aca-420e-a4f8-b2849e79d064" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/socrates/server/CallbackServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/socrates/server/CallbackServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/socrates/server/CallbackServerInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/socrates/server/CallbackServerInterface.java" afterDir="false" />
     </list>
@@ -188,7 +187,7 @@
       <workItem from="1731594969259" duration="104000" />
       <workItem from="1731598048150" duration="1238000" />
       <workItem from="1731611543619" duration="67000" />
-      <workItem from="1731611793651" duration="1087000" />
+      <workItem from="1731611793651" duration="1223000" />
     </task>
     <task id="LOCAL-00001" summary="Primera versión de las interfaces de callback y objeto User">
       <option name="closed" value="true" />

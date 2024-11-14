@@ -277,7 +277,7 @@ public class CallbackServer extends UnicastRemoteObject implements CallbackServe
     }
 
     @Override
-    public String startChat(String name, String friendName, String password) throws RemoteException {
+    public String startChat(String name, String password, String friendName) throws RemoteException {
         // Verifies the credentials are correct
         if (!bd.login(name, password)) {
             System.out.println("Unable to start chat: invalid credentials");
