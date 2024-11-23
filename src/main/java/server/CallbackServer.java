@@ -217,8 +217,11 @@ public class CallbackServer extends UnicastRemoteObject implements CallbackServe
             System.out.println("Unable to reject friend request: friend request does not exist");
             return false;
         } else { // Rejects the friend request
-            if (bd.rejectFriendRequest(name, friendName)) { // Rejects the friend request in the database
-                connectedUsers.get(friendName).getClient().solicitudAmistadRechazada(name); // Notifies the user (friend)
+            if (bd.rejectFriendRequest(friendName, name)) { // Rejects the friend request in the database
+                if (connectedUsers.get(friendName) != null)
+                    connectedUsers.get(friendName).getClient().solicitudAmistadRechazada(name); // Notifies the user (friend)
+                if (connectedUsers.get(name) != null)
+                    connectedUsers.get(name).getClient().solicitudAmistadRechazada(friendName); // Notifies the user (name)
                 System.out.println("Friend request rejected from " + name + " to " + friendName);
                 return true;
             } else {

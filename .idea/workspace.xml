@@ -5,18 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="15b95f13-5aca-420e-a4f8-b2849e79d064" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Server.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/shared/ICallbackCliente.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/socrates/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/socrates/bd/BDAdmin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bd/BDAdmin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/socrates/bd/BDAdminInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bd/BDAdminInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/socrates/client/CallbackClientInterface.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/socrates/server/CallbackServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/CallbackServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/socrates/server/CallbackServerInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shared/CallbackServerInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/socrates/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shared/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/socrates/bd/BDAdminTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/socrates/bd/BDAdminTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/socrates/server/CallbackServerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/socrates/server/CallbackServerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/CallbackServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/CallbackServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,34 +45,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Server.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.BDAdminTest.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.BDAdminTest.testConexion.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.BDAdminTest.testLogin.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.BDAdminTest.testRegistrarUsuario.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CallbackServerTest,testLoginSuccess and 5 more.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CallbackServerTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CallbackServerTest.testLogOutSuccess.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.CallbackServerTest.testLoginFailInvalidCredentials.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CallbackServerTest.testLoginSuccess.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CallbackServerTest.testRegisterSuccess.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/smokey/Documents/ETSE/CoDis/CoDis/P5 2024/ChatServer/ChatServer&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Server.executor": "Debug",
+    "JUnit.BDAdminTest.executor": "Debug",
+    "JUnit.BDAdminTest.testConexion.executor": "Run",
+    "JUnit.BDAdminTest.testLogin.executor": "Run",
+    "JUnit.BDAdminTest.testRegistrarUsuario.executor": "Run",
+    "JUnit.CallbackServerTest,testLoginSuccess and 5 more.executor": "Run",
+    "JUnit.CallbackServerTest.executor": "Run",
+    "JUnit.CallbackServerTest.testLogOutSuccess.executor": "Debug",
+    "JUnit.CallbackServerTest.testLoginFailInvalidCredentials.executor": "Run",
+    "JUnit.CallbackServerTest.testLoginSuccess.executor": "Run",
+    "JUnit.CallbackServerTest.testRegisterSuccess.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/smokey/Documents/ETSE/CoDis/CoDis/P5 2024/ChatServer/ChatServer",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
@@ -235,6 +225,7 @@
       <workItem from="1732268048693" duration="1930000" />
       <workItem from="1732295834773" duration="2988000" />
       <workItem from="1732357394832" duration="502000" />
+      <workItem from="1732358030507" duration="1076000" />
     </task>
     <task id="LOCAL-00001" summary="Primera versión de las interfaces de callback y objeto User">
       <option name="closed" value="true" />
@@ -276,6 +267,11 @@
           <url>file://$PROJECT_DIR$/src/main/java/bd/BDAdmin.java</url>
           <line>64</line>
           <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/server/CallbackServer.java</url>
+          <line>219</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
