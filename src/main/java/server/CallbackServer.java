@@ -67,8 +67,8 @@ public class CallbackServer extends UnicastRemoteObject implements CallbackServe
             user = new User(client, name, friends, connectedFriends, friendRequests);
 
             // Connected user
-            notifyConnectionToFriends(name);
             connectedUsers.put(name, user);
+            notifyConnectionToFriends(name);
             System.out.println("User " + name + " logged in");
         } else {
             System.out.println("Unable to log in: invalid credentials");
@@ -127,7 +127,7 @@ public class CallbackServer extends UnicastRemoteObject implements CallbackServe
         } else if (!connectedUsers.containsKey(name)) {
             System.out.println("Unable to delete account: user is not connected");
             return false;
-        } else if(bd.deleteUser(name, password)){
+        } else if (bd.deleteUser(name, password)) {
             notifyDisconnectionToFriends(name);
             connectedUsers.remove(name);
             System.out.println("User " + name + " deleted");
@@ -330,7 +330,9 @@ public class CallbackServer extends UnicastRemoteObject implements CallbackServe
     }
 
     private synchronized void notifyConnectionToFriends(String user) throws RemoteException {
-        if (connectedUsers.get(user) == null || connectedUsers.get(user).getFriends() == null) return;
+        if (connectedUsers.get(user) == null || connectedUsers.get(user).getFriends() == null ||
+                connectedUsers.get(user).getFriendsConnected() == null || connectedUsers.get(user).getFriendsConnected().isEmpty())
+            return;
         // Notifies the user's friends
         for (String friend : connectedUsers.get(user).getFriends()) {
             if (connectedUsers.containsKey(friend)) {

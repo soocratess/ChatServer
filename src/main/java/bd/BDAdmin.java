@@ -48,7 +48,7 @@ public class BDAdmin implements BDAdminInterface {
                 statement.setString(1, username);
                 statement.setString(2, password);
                 try (ResultSet resultSet = statement.executeQuery()) {
-                    System.out.println("Query executed without errors");
+                    System.out.println("Login executed without errors");
                     return resultSet.next();
                 }
             }
@@ -108,7 +108,7 @@ public class BDAdmin implements BDAdminInterface {
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, username);
                 try (ResultSet resultSet = statement.executeQuery()) {
-                    System.out.println("Query executed without errors");
+                    System.out.println("User search executed without errors");
                     return resultSet.next();
                 }
             }
@@ -138,7 +138,7 @@ public class BDAdmin implements BDAdminInterface {
                             friends.add(u1);
                         else friends.add(u2);
                     }
-                    System.out.println("Query executed without errors");
+                    System.out.println("Friend list consulted without errors");
                     return friends;
                 }
             }
@@ -159,7 +159,7 @@ public class BDAdmin implements BDAdminInterface {
                 while (resultSet.next()) {
                     requests.add(resultSet.getString("requesting_user"));
                 }
-                System.out.println("Query executed without errors");
+                System.out.println("Friend requests consulted without errors");
                 return requests;
             }
         } catch (SQLException e) {

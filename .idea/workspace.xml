@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="15b95f13-5aca-420e-a4f8-b2849e79d064" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bd/BDAdmin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bd/BDAdmin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/CallbackServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/CallbackServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -47,7 +48,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.Server.executor": "Debug",
+    "Application.Server.executor": "Run",
     "JUnit.BDAdminTest.executor": "Debug",
     "JUnit.BDAdminTest.testConexion.executor": "Run",
     "JUnit.BDAdminTest.testLogin.executor": "Run",
@@ -225,7 +226,7 @@
       <workItem from="1732268048693" duration="1930000" />
       <workItem from="1732295834773" duration="2988000" />
       <workItem from="1732357394832" duration="502000" />
-      <workItem from="1732358030507" duration="1076000" />
+      <workItem from="1732358030507" duration="3634000" />
     </task>
     <task id="LOCAL-00001" summary="Primera versión de las interfaces de callback y objeto User">
       <option name="closed" value="true" />
@@ -270,8 +271,11 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/server/CallbackServer.java</url>
-          <line>219</line>
-          <option name="timeStamp" value="8" />
+          <line>332</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
