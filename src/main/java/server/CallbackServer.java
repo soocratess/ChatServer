@@ -1,9 +1,10 @@
-package socrates.server;
+package server;
 
-import socrates.bd.BDAdmin;
-import socrates.bd.BDAdminInterface;
-import socrates.client.CallbackClientInterface;
-import socrates.user.User;
+import shared.CallbackServerInterface;
+import bd.BDAdmin;
+import bd.BDAdminInterface;
+import shared.ICallbackCliente;
+import shared.User;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -37,7 +38,7 @@ public class CallbackServer extends UnicastRemoteObject implements CallbackServe
     }
 
     @Override
-    public User login(CallbackClientInterface client, String name, String password) throws RemoteException {
+    public User login(ICallbackCliente client, String name, String password) throws RemoteException {
 
         User user = null;
 
@@ -50,20 +51,20 @@ public class CallbackServer extends UnicastRemoteObject implements CallbackServe
             System.out.println("Successfully loged in user " + name);
 
             // Obtains the list of friends and connected friends
-            ArrayList<String> friends, connectedFrieds;
-            friends = obtainFriendRequests(name, password);
-            connectedFrieds = new ArrayList<>();
+            ArrayList<String> friends, connectedFriends;
+            friends = obtainFriendList(name, password);
+            connectedFriends = new ArrayList<>();
 
             // Obtains the list of connected friends
-            for (String friend : connectedFrieds) {
-                if (connectedUsers.containsKey(friend)) connectedFrieds.add(friend);
+            for (String friend : friends) {
+                if (connectedUsers.containsKey(friend)) connectedFriends.add(friend);
             }
 
             // Obtains th elist of friend requests
             ArrayList<String> friendRequests = obtainFriendRequests(name, password);
 
             // Creates the user
-            user = new User(client, name, friends, connectedFrieds, friendRequests);
+            user = new User(client, name, friends, connectedFriends, friendRequests);
 
             // Connected user
             notifyConnectionToFriends(name);
@@ -99,16 +100,19 @@ public class CallbackServer extends UnicastRemoteObject implements CallbackServe
     }
 
     @Override
-    public User register(CallbackClientInterface client, String name, String password) throws RemoteException {
+    public User register(ICallbackCliente client, String name, String password) throws RemoteException {
 
         User user = null;
 
         if (client == null) {
             System.out.println("Unable to register user " + name);
             return user;
-        } else if (bd.register(name, password, user.getRMIAddress())) {
-            user = login(client, name, password);
-            System.out.println("Successfully registered user " + name);
+        } else {
+            if (bd.register(name, password)) {
+                user = login(client, name, password);
+                bd.updateRMIAddress(name, password, user.getRMIAddress());
+                System.out.println("Successfully registered user " + name);
+            }
         }
 
         return user;
@@ -146,12 +150,14 @@ public class CallbackServer extends UnicastRemoteObject implements CallbackServe
         } else if (bd.getFriends(name).contains(friendName)) {
             System.out.println("Unable to send friend request: users are already friends");
             return false;
-        } else if (bd.getPendingFriendRequests(name).contains(friendName)) {
+        } else if (bd.getPendingFriendRequests(name).contains(friendName) ||
+                bd.getPendingFriendRequests(friendName).contains(name)) {
             System.out.println("Unable to send friend request: friend request already exists");
             return false;
         } else {
             bd.sendFriendRequest(name, friendName);
-            connectedUsers.get(friendName).getClient().friendRequestReceived(name);
+            if (connectedUsers.get(friendName) != null)
+                connectedUsers.get(friendName).getClient().solicitudAmistadNueva(name);
             System.out.println("Friend request sent from " + name + " to " + friendName);
             return true;
         }
@@ -168,7 +174,10 @@ public class CallbackServer extends UnicastRemoteObject implements CallbackServe
             return false;
         } else { // Removes the friend
             bd.removeFriend(name, friendName); // Removes the friend from the database
-            connectedUsers.get(friendName).getClient().friendDeleted(name); // Notifies the user (friend)
+            if (connectedUsers.get(friendName) != null)
+                connectedUsers.get(friendName).getClient().amigoEliminado(name); // Notifies the user (friend)
+            if (connectedUsers.get(name) != null)
+                connectedUsers.get(name).getClient().amigoEliminado(friendName);
             System.out.println("Friend removed from " + name + " friends list");
             return true;
         }
@@ -184,8 +193,11 @@ public class CallbackServer extends UnicastRemoteObject implements CallbackServe
             System.out.println("Unable to accept friend request: friend request does not exist");
             return false;
         } else { // Accepts the friend request
-            if (bd.acceptFriendRequest(name, friendName)) { // Accepts the friend request in the database
-                connectedUsers.get(friendName).getClient().friendAdded(name); // Notifies the user (friend)
+            if (bd.acceptFriendRequest(friendName, name)) { // Accepts the friend request in the database
+                if (connectedUsers.get(friendName) != null)
+                    connectedUsers.get(friendName).getClient().amigoNuevo(name); // Notifies the user (friend)
+                if (connectedUsers.get(name) != null)
+                    connectedUsers.get(name).getClient().amigoNuevo(friendName); // Notifies the user (name)
                 System.out.println("Friend request accepted from " + name + " to " + friendName);
                 return true;
             } else {
@@ -206,7 +218,7 @@ public class CallbackServer extends UnicastRemoteObject implements CallbackServe
             return false;
         } else { // Rejects the friend request
             if (bd.rejectFriendRequest(name, friendName)) { // Rejects the friend request in the database
-                connectedUsers.get(friendName).getClient().friendRequestRejected(name); // Notifies the user (friend)
+                connectedUsers.get(friendName).getClient().solicitudAmistadRechazada(name); // Notifies the user (friend)
                 System.out.println("Friend request rejected from " + name + " to " + friendName);
                 return true;
             } else {
@@ -292,19 +304,34 @@ public class CallbackServer extends UnicastRemoteObject implements CallbackServe
     }
 
     private synchronized void notifyDisconnectionToFriends(String user) throws RemoteException {
+        if (connectedUsers.get(user) == null || connectedUsers.get(user).getFriends() == null) return;
         // Notifies the user's friends
         for (String friend : connectedUsers.get(user).getFriends()) {
             if (connectedUsers.containsKey(friend)) {
-                connectedUsers.get(friend).getClient().friendDisconnected(user);
+                connectedUsers.get(friend).getClient().amigoDesconectado(user);
             }
         }
     }
 
+    @Override
+    public boolean updateRMIAddress(String name, String password, ICallbackCliente client) throws RemoteException {
+        // Verifies the credentials are correct
+        if (!bd.login(name, password)) {
+            System.out.println("Unable to update RMI address: invalid credentials");
+            return false;
+        } else {
+            connectedUsers.get(name).setClient(client);
+            System.out.println("RMI address updated for user " + name);
+            return true;
+        }
+    }
+
     private synchronized void notifyConnectionToFriends(String user) throws RemoteException {
+        if (connectedUsers.get(user) == null || connectedUsers.get(user).getFriends() == null) return;
         // Notifies the user's friends
         for (String friend : connectedUsers.get(user).getFriends()) {
             if (connectedUsers.containsKey(friend)) {
-                connectedUsers.get(friend).getClient().friendConnected(user);
+                connectedUsers.get(friend).getClient().amigoConectado(user);
             }
         }
     }

@@ -1,10 +1,10 @@
-package socrates.bd;
+package bd;
 
 import java.util.ArrayList;
 
 public interface BDAdminInterface {
     boolean login(String username, String password);
-    boolean register(String username, String password, String remoteObjectAddress);
+    boolean register(String username, String password);
     boolean deleteUser(String username, String password);
     boolean existsUser(String username);
 
@@ -16,4 +16,6 @@ public interface BDAdminInterface {
     boolean acceptFriendRequest(String origin, String destination);
     boolean rejectFriendRequest(String origin, String destination);
     boolean changePassword(String username, String oldPassword, String newPassword);
+
+    boolean updateRMIAddress(String username, String password, String remoteObjectAddress);
 }

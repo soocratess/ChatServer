@@ -1,5 +1,7 @@
 package socrates.bd;
 
+import bd.BDAdmin;
+import bd.BDAdminInterface;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,7 +35,7 @@ public class BDAdminTest {
     @Test
     public void testLogin() {
         // Login test
-        bdAdmin.register("testuser_login", "password_login", "remote_address");
+        bdAdmin.register("testuser_login", "password_login");
         boolean result = bdAdmin.login("testuser_login", "password_login");
         assertTrue(result, "The user should be able to log in successfully.");
         System.out.println("Login successful.");
@@ -42,7 +44,7 @@ public class BDAdminTest {
     @Test
     public void testSearchUser() {
         // Test for searching an existing user
-        bdAdmin.register("testuser_search", "password_search", "remote_address");
+        bdAdmin.register("testuser_search", "password_search");
         boolean found = bdAdmin.existsUser("testuser_search");
         assertTrue(found, "The user should exist in the database.");
         System.out.println("User search successful.");
@@ -51,7 +53,7 @@ public class BDAdminTest {
     @Test
     public void testDeleteUser() {
         // Test for deleting a user
-        bdAdmin.register("testuser_delete", "password_delete", "remote_address");
+        bdAdmin.register("testuser_delete", "password_delete");
         boolean deleted = bdAdmin.deleteUser("testuser_delete", "password_delete");
         assertTrue(deleted, "The user should be deleted successfully.");
         System.out.println("User deletion successful.");
@@ -60,8 +62,8 @@ public class BDAdminTest {
     @Test
     public void testFriendship() {
         // Test friendship functionality
-        bdAdmin.register("user1", "password1", "remote_address1");
-        bdAdmin.register("user2", "password2", "remote_address2");
+        bdAdmin.register("user1", "password1");
+        bdAdmin.register("user2", "password2");
 
         // Send friend request
         boolean requestSent = bdAdmin.sendFriendRequest("user1", "user2");

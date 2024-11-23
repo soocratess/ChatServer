@@ -1,18 +1,15 @@
-package socrates.server;
+package shared;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import socrates.user.User;
-import socrates.client.CallbackClientInterface;
-
 public interface CallbackServerInterface extends Remote {
     // TODO think about the return types of the methods. Is it necessary to return a User?
-    User login(CallbackClientInterface client, String name, String password) throws RemoteException; // logs in a user
+    User login(ICallbackCliente client, String name, String password) throws RemoteException; // logs in a user
     boolean logOut(String name, String password) throws RemoteException; // logs out a user
 
-    User register (CallbackClientInterface client, String name, String password) throws RemoteException; // registers a user
+    User register (ICallbackCliente client, String name, String password) throws RemoteException; // registers a user
     boolean deleteAccount(String name, String password) throws RemoteException; // deletes an account
 
     ArrayList<String> obtainFriendList(String name, String password) throws RemoteException; // obtains friend list
@@ -33,4 +30,7 @@ public interface CallbackServerInterface extends Remote {
     // (el servidor debe proveer de las claves cifradas y las referencias)
     // igual hace falta una clase que almacene el nombre del amigo y la clave de cifrado para poder devolver ese
     // objeto y que el cliente pueda iniciar el chat o una clase "sobre digital"
+
+    boolean updateRMIAddress(String name, String password, ICallbackCliente client) throws RemoteException;
+
 }

@@ -1,4 +1,4 @@
-package socrates.bd;
+package bd;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -60,13 +60,12 @@ public class BDAdmin implements BDAdminInterface {
 
     // Method to register a new user
     @Override
-    public boolean register(String username, String password, String remoteObjectAddress) {
+    public boolean register(String username, String password) {
         try {
-            String sql = "INSERT INTO USER (username, password, remote_object_address) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO USER (username, password) VALUES (?, ?)";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, username);
                 statement.setString(2, password);
-                statement.setString(3, remoteObjectAddress);
                 int rowsAffected = statement.executeUpdate();
                 System.out.println("Rows affected in INSERT " + rowsAffected);
                 return rowsAffected > 0;
@@ -250,6 +249,22 @@ public class BDAdmin implements BDAdminInterface {
             return rowsAffected > 0;
         } catch (SQLException e) {
             System.out.println("Error changing the password for " + username + ": " + e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateRMIAddress(String username, String password, String remoteObjectAddress) {
+        String sql = "UPDATE USER SET remote_object_address = ? WHERE username = ? AND password = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, remoteObjectAddress);
+            statement.setString(2, username);
+            statement.setString(3, password);
+            int rowsAffected = statement.executeUpdate();
+            System.out.println("Rows affected in UPDATE " + rowsAffected);
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.out.println("Error updating the RMI address for " + username + ": " + e.getMessage());
             return false;
         }
     }

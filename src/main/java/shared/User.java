@@ -1,11 +1,11 @@
-package socrates.user;
+package shared;
 
-import socrates.client.CallbackClientInterface;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class User {
-    private CallbackClientInterface client;
+public class User implements Serializable{
+    private ICallbackCliente client;
     private String username;
     private ArrayList<String> friends;
     private ArrayList<String> friendsConnected;
@@ -15,7 +15,7 @@ public class User {
     // private MessageInterface messageInterface;
 
     // Constructor
-    public User(CallbackClientInterface client, String username) {
+    public User(ICallbackCliente client, String username) {
         this.username = username;
         this.friends = new ArrayList<>();
         this.friendsConnected = new ArrayList<>();
@@ -24,7 +24,7 @@ public class User {
     }
 
 
-    public User(CallbackClientInterface client, String username, ArrayList<String> friends, ArrayList<String> friendsConnected, ArrayList<String> friendRequests) {
+    public User(ICallbackCliente client, String username, ArrayList<String> friends, ArrayList<String> friendsConnected, ArrayList<String> friendRequests) {
         this.client = client;
         this.username = username;
         this.friends = friends;
@@ -75,11 +75,11 @@ public class User {
         this.connected = connected;
     }
 
-    public CallbackClientInterface getClient() {
+    public ICallbackCliente getClient() {
         return client;
     }
 
-    public void setClient(CallbackClientInterface client) {
+    public void setClient(ICallbackCliente client) {
         this.client = client;
     }
 
