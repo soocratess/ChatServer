@@ -1,4 +1,4 @@
-package shared;
+package cliente_servidor;
 
 
 import java.io.Serializable;

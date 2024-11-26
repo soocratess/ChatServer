@@ -1,10 +1,10 @@
 package server;
 
-import shared.CallbackServerInterface;
+import cliente_servidor.CallbackServerInterface;
 import bd.BDAdmin;
 import bd.BDAdminInterface;
-import shared.ICallbackCliente;
-import shared.User;
+import cliente_servidor.ICallbackCliente;
+import cliente_servidor.User;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -123,9 +123,6 @@ public class CallbackServer extends UnicastRemoteObject implements CallbackServe
         // deletes an account
         if (!bd.login(name, password)) {
             System.out.println("Unable to delete account: invalid credentials");
-            return false;
-        } else if (!connectedUsers.containsKey(name)) {
-            System.out.println("Unable to delete account: user is not connected");
             return false;
         } else if (bd.deleteUser(name, password)) {
             notifyDisconnectionToFriends(name);

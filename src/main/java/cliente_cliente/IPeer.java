@@ -1,4 +1,4 @@
-package paquete.chatcliente;
+package cliente_cliente;
 
 import java.rmi.RemoteException;
 

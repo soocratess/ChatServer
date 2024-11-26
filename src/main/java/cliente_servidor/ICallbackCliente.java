@@ -1,4 +1,4 @@
-package shared;
+package cliente_servidor;
 
 //Interfaz del cliente para las llamadas remotas del servidor
 

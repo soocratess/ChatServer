@@ -1,4 +1,4 @@
-package paquete.chatcliente;
+package cliente_cliente;
 
 //Clase que encapsula los datos relativos a un mensaje
 
