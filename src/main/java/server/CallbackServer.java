@@ -306,7 +306,7 @@ public class CallbackServer extends UnicastRemoteObject implements CallbackServe
     private synchronized void notifyDisconnectionToFriends(String user) throws RemoteException {
         if (connectedUsers.get(user) == null || connectedUsers.get(user).getFriends() == null) return;
         // Notifies the user's friends
-        for (String friend : connectedUsers.get(user).getFriends()) {
+        for (String friend : bd.getFriends(user)) {
             if (connectedUsers.containsKey(friend)) {
                 connectedUsers.get(friend).getClient().amigoDesconectado(user);
             }

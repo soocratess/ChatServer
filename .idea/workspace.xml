@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="15b95f13-5aca-420e-a4f8-b2849e79d064" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/CallbackServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/CallbackServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -226,7 +225,9 @@
       <workItem from="1732295834773" duration="2988000" />
       <workItem from="1732357394832" duration="502000" />
       <workItem from="1732358030507" duration="6146000" />
-      <workItem from="1732609654146" duration="2597000" />
+      <workItem from="1732609654146" duration="3080000" />
+      <workItem from="1732698458656" duration="3800000" />
+      <workItem from="1732813151739" duration="1151000" />
     </task>
     <task id="LOCAL-00001" summary="Primera versión de las interfaces de callback y objeto User">
       <option name="closed" value="true" />
@@ -265,14 +266,14 @@
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/bd/BDAdmin.java</url>
-          <line>64</line>
-          <option name="timeStamp" value="6" />
+          <url>file://$PROJECT_DIR$/src/main/java/server/CallbackServer.java</url>
+          <line>82</line>
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/server/CallbackServer.java</url>
-          <line>165</line>
-          <option name="timeStamp" value="13" />
+          <line>308</line>
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
